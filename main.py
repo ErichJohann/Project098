@@ -4,7 +4,7 @@ from tkinter.filedialog import askopenfilename
 
 def camera():
     #abre camera
-    cam = cv2.VideoCapture(0)
+    cam = cv2.VideoCapture(0) #0 opens default camera
 
     if not cam.isOpened():
         print('falha ao abrir camera')
@@ -35,22 +35,25 @@ def camera():
 def takePhoto():
     img = None
     while True:
-        img = camera()
+        img = camera() #takes photo
         if img is not None:
             cv2.imshow("Pressione \'t\' para tirar outra foto ou \'f\' para prosseguir", img)
-            key = cv2.waitKey(0) & 0xFF
+            key = cv2.waitKey(0) & 0xFF #waitKey(0) waits for user input
             if key == ord('f'):
                 cv2.destroyAllWindows()
-                return 'f', img
+                return 'f', img #ord() returns an int which != string
         else:
             return None, ''
         cv2.destroyAllWindows()
 
 
+#loads photo from disk
 def uploadPhoto():
+    #inicialize tk
     root = Tk()
     root.withdraw()
     root.attributes('-topmost', True)
+    #opens explorer, with only jpg jpeg and png
     imgPath = askopenfilename(title='Selecione uma imagem', filetypes=[("Arquivos de image", "*.jpg *.jpeg *.png")])
     if imgPath:
         img = cv2.imread(imgPath)
@@ -67,13 +70,15 @@ if __name__ == "__main__":
     while True:   
         match mode:
             case 't':
-                img, mode = takePhoto()
+                img, mode = takePhoto() #opens webcam and takes a pic
 
             case 'u':
-                img, mode = uploadPhoto()
+                img, mode = uploadPhoto() #opens explorer to select a image file
 
             case _:
                 mode = input("\'t\' - Tirar foto\n\'u\' - Upload foto\n").lower()
+
+        #if there is no image operation was canceled
         if img is not None:
             print("imagem salva")
             break
