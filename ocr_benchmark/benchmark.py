@@ -1,20 +1,25 @@
 import pytesseract
 import easyocr
 from paddleocr import PaddleOCR
-from transformers import TrOCRProcessor, VisionEncoderDecoderModel
+#from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 import torch
 import cv2
 import os
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
+from pix2tex.cli import LatexOCR
+from PIL import Image
+
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" #default tesseract path
 confg = r'--oem 3 --psm 6'  # engine LSTM + modo "parágrafos"
 
-os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+'''os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 processor = TrOCRProcessor.from_pretrained("microsoft/trocr-large-handwritten")
 model = VisionEncoderDecoderModel.from_pretrained("microsoft/trocr-large-handwritten")
 model.to(device)
-model.eval()
+model.eval()'''
 
 
 def processData(path):
@@ -26,7 +31,7 @@ def processData(path):
     cv2.imshow('a', denoisedImg) #show image after processing
     cv2.waitKey(0)
     return denoisedImg'''
-    return cv2.imread(r'imgs/internetl3.png')
+    return cv2.imread(r'.png')
 
 
 #may have more accuracy preprocessing data effectively
@@ -54,8 +59,7 @@ def paddle(img):
         print(line)
         
 
-
-def tr(img):
+'''def tr(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     #h, w, _ = img.shape
     #scale = 384 / max(h, w)
@@ -75,18 +79,37 @@ def tr(img):
         
     #generated_ids = model.generate(pixel_values, max_new_tokens=1000)
     text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
-    print(f"texto identificado: {text}")
+    print(f"texto identificado: {text}")'''
 
 
-oi = processData('')
-print("\n\n=======Tesseract=======\n")
-tes(oi)
+def latOcr(img):
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = Image.fromarray(img)
+    model = LatexOCR()
+    result = model(img)
+    print(result)
 
-print("\n\n=======EasyOCR=======\n")
-easy(oi)
 
-print("\n\n=======PaddleOCR=======\n")
-paddle(oi)
+def getImg():
+    root = Tk()
+    root.withdraw()
+    root.attributes('-topmost', True)
+    imgPath = askopenfilename(title='Selecione uma imagem', filetypes=[("Arquivos de image", "*.jpg *.jpeg *.png")])
+    return imgPath
 
-print("\n\n=======TrOCR=======\n")
-tr(oi)
+imPath = getImg()
+oi = cv2.imread(imPath)
+#print("\n\n=======Tesseract=======\n")
+#tes(oi)
+
+#print("\n\n=======EasyOCR=======\n")
+#easy(oi)
+
+#print("\n\n=======PaddleOCR=======\n")
+#paddle(oi)
+
+#print("\n\n=======TrOCR=======\n")
+#tr(oi)
+
+print("\n\n=======LatexOCR=======\n")
+latOcr(oi)

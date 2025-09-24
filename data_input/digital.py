@@ -1,28 +1,30 @@
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.pipeline_options import (
     PdfPipelineOptions,
-#    TesseractCliOcrOptions,
+#   TesseractCliOcrOptions,
 )
 from docling.datamodel.base_models import InputFormat
-from docling.datamodel.pipeline_options import granite_picture_description
+#from docling.datamodel.pipeline_options import granite_picture_description
+from paddleocr import PaddleOCR
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 import os
 
+
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
 def doclingFormat(source):
-    #ocr_options = TesseractCliOcrOptions(lang=["pt"])
+    #ocr_options = TesseractCliOcrOptions(lang=["auto"])
     pipeline_options = PdfPipelineOptions(
-        #do_ocr=True, force_full_page_ocr=True, ocr_options=ocr_options
+    #    do_ocr=True ,force_full_page_ocr=True , ocr_options=ocr_options
     )
-    pipeline_options.do_code_enrichment = True
-    pipeline_options.do_formula_enrichment = True
-    pipeline_options.generate_picture_images = True
-    pipeline_options.images_scale = 2
+    #pipeline_options.do_code_enrichment = True
+    #pipeline_options.do_formula_enrichment = True
+    #pipeline_options.generate_picture_images = True
+    #pipeline_options.images_scale = 2
     #pipeline_options.do_picture_classification = True
-    pipeline_options.do_picture_description = True
-    pipeline_options.picture_description_options = granite_picture_description
+    #pipeline_options.do_picture_description = True
+    #pipeline_options.picture_description_options = granite_picture_description
 
     doc_converter = DocumentConverter(
     format_options={
@@ -32,18 +34,32 @@ def doclingFormat(source):
     result = doc_converter.convert(source)
     return result.document
 
+def paddle(img):
+    #text image preprocessing + text detection + textline orientation classification + text recognition
+    ocr = PaddleOCR(use_doc_orientation_classify=True, use_doc_unwarping=True, lang='pt')
+    dat = ocr.predict(img)
+
+    predict = dat[0]
+    txt = ''
+    for line in predict['rec_texts']:
+        txt = ' '.join(line)
+    return txt
+
 if __name__ == '__main__':
     root = Tk()
     root.withdraw()
     root.attributes('-topmost', True)
     filePath = askopenfilename(
         title='Selecione o arquivo', 
-        filetypes=[("Docs", "*.pdf")])
+        #filetypes=[("Docs", "*.pdf")])
+        filetypes=[("Docs", "*.jpg *.png *.jpeg")])
 
     if not filePath:
         print(f'Arquivo não foi selecionado')
         exit(1)
 
-    doc = doclingFormat(filePath)
+    #doc = doclingFormat(filePath)
+    #print(doc.export_to_markdown())
 
-    print(doc.export_to_markdown())
+    doc = paddle(filePath)
+    print(doc)

@@ -1,3 +1,6 @@
 /ocr_benchmark/texts
 /ocr_benchmark/imgs
 data_input/__pycache__/docling.cpython-312.pyc
+/data_input/results
+/ocr_benchmark/paddleTest
+/ocr_benchmark/tests
