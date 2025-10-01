@@ -4,3 +4,9 @@ data_input/__pycache__/docling.cpython-312.pyc
 /data_input/results
 /ocr_benchmark/paddleTest
 /ocr_benchmark/tests
+/llm/solutions
+llm/.env
+llm/__pycache__/groq.cpython-312.pyc
+llm/identify.txt
+llm/persona.txt
+/llm/testes
