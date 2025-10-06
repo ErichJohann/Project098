@@ -44,7 +44,7 @@ completion = client.chat.completions.create(
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "Extraia todo o texto desta imagem:"},
+                    {"type": "text", "text": "Extraia todo o texto da imagem a seguir. Não adicione NADA, retorne APENAS o texto identificado. Caso se trate de cálculos matemáticos retorne o resultado em LaTeX"},
                     {"type": "image_url", "image_url": {"url": img_data}}
                 ]
             }
