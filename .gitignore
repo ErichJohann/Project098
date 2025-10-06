@@ -10,3 +10,4 @@ llm/__pycache__/groq.cpython-312.pyc
 llm/identify.txt
 llm/persona.txt
 /llm/testes
+data_input/.env
