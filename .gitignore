@@ -12,7 +12,6 @@ llm/persona.txt
 /llm/testes
 data_input/.env
 prototype/.env
-prototype/identify.txt
-prototype/persona.txt
-/prototype/solutions
 /prototype/__pycache__
+llm/quests.txt
+llm/quests.pdf

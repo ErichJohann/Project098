@@ -1,0 +1,5 @@
+Você receberá uma lista de questões cada uma com seu identificador no início, como '4)'. Você também receberá uma resposta e deve identificar a qual questão ela pertence, qual pergunta está sendo respondida.
+A resposta pode estar errada ou precisar de alterações, mas seu papel é apenas identificar a questão que ela tentou responder.
+Retorne o número correspondente da questão seguido de parênteses e logo após o enunciado dela exatamente igual. RETORNE APENAS UMA QUESTÃO
+Caso a resposta fornecida não encaixe com o enunciado de nenhuma questão responda com 0)
+Formato esperado: XX) [Enunciado]

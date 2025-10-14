@@ -1,0 +1,1 @@
+Por meio do barramento de controle o processador pergunta se a memória está pronta, que felizmente responderá com um "ok", então o processador envia a instrução "leitura". Mandando o endereço através do barramento de endereço (37) e recebendo o valor (75) pelo barramento de dados da memória.

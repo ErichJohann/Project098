@@ -1,0 +1,1 @@
+As características básicas de Von Newmann no computador descrevem que este seria composto pela CPU(Unidade de Controle e Unidade de Lógica e Aritmética), dispositivos de entrada e saída e a memória, que armazena tanto os dados quanto os programas, além de claro, o uso de um barramento único para tráfego de dados entre memória, CPU e E/S.

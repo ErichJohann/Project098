@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Soluções passo a passo}
+
+\subsection*{Limite}
+\[
+\lim_{x\to+\infty}\frac{x}{\sqrt{x+1}}
+\]
+Dividindo numerador e denominador por \(\sqrt{x}\):
+\[
+\frac{x}{\sqrt{x+1}}
+= \frac{\sqrt{x}\cdot\sqrt{x}}{\sqrt{x}\cdot\sqrt{1+\tfrac{1}{x}}}
+= \frac{\sqrt{x}}{\sqrt{1+\tfrac{1}{x}}}.
+\]
+Como \(\sqrt{1+\tfrac{1}{x}}\to 1\) e \(\sqrt{x}\to +\infty\) quando \(x\to\infty\), segue que
+\[
+\lim_{x\to+\infty}\frac{x}{\sqrt{x+1}}=+\infty.
+\]
+(Alternativa: aplicação da regra de L'Hôpital leva ao mesmo resultado.)
+
+\end{document}

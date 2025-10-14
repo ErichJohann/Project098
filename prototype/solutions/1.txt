@@ -1,0 +1,1 @@
+256 instruções, pois cada instrução tem 8 bits. Sendo portanto 2^8 possibilidades.
