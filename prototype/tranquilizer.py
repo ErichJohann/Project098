@@ -36,6 +36,9 @@ def getAnswer(problem):
             num += ch
         else:
             break
+    if int(num) == 0 or not num:
+         return "A questão não pode ser identificada na lista"
+    
     solution = "solutions/" + num + ".txt"
 
     with open(solution, 'r', encoding='utf-8') as file:

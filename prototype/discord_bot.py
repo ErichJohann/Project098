@@ -18,7 +18,7 @@ async def on_ready():
     print(f'Bot online')
 
 @bot.command()
-async def verify(ctx):
+async def help(ctx):
     if ctx.author == bot.user:
         return
     if not ctx.message.attachments:
