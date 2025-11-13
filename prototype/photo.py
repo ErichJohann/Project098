@@ -9,7 +9,7 @@ def camera():
 
     if not cam.isOpened():
         print('falha ao abrir camera')
-        exit(1)
+        return None
 
     img = None
     while True:
@@ -42,7 +42,7 @@ def takePhoto():
             key = cv2.waitKey(0) & 0xFF #waitKey(0) waits for user input
             if key == ord('f'):
                 cv2.destroyAllWindows()
-                return 'f', img #ord() returns an int which != string
+                return img, 'f' #ord() returns an int which != string
         else:
             return None, ''
         cv2.destroyAllWindows()

@@ -36,7 +36,7 @@ def getAnswer(problem):
             num += ch
         else:
             break
-    if int(num) == 0 or not num:
+    if not num or int(num) == 0:
          return "A questão não pode ser identificada na lista"
     
     solution = "solutions/" + num + ".txt"
