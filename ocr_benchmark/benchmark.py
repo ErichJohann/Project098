@@ -14,7 +14,7 @@ from PIL import Image
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" #default tesseract path
 confg = r'--oem 3 --psm 6'  # engine LSTM + modo "parágrafos"
 
-'''os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+'''os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = 'True'
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 processor = TrOCRProcessor.from_pretrained("microsoft/trocr-large-handwritten")
 model = VisionEncoderDecoderModel.from_pretrained("microsoft/trocr-large-handwritten")

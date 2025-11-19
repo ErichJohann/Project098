@@ -15,3 +15,5 @@ prototype/.env
 /prototype/__pycache__
 llm/quests.txt
 llm/quests.pdf
+prototype/dbug.py
+/llm/offload
