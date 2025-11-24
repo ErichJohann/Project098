@@ -49,7 +49,7 @@ def qwen():
     model_name,
     torch_dtype="auto",
     #load_in_4bit=True, only works on gpu?
-    device_map={ "": device }
+    device_map=device
     )
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     prompt = "Find any mistake on the student's answer" + "\nProblem: " + question + "\nRight solution:" + solution_raw +  "\n\nStudent's try: " + student
@@ -86,6 +86,21 @@ def mathstral():
 
     return response
 
+def gemma():
+    tokenizer = AutoTokenizer.from_pretrained("google/gemma-2-9b-it")
+    model = AutoModelForCausalLM.from_pretrained(
+        "google/gemma-2-9b-it",
+        device_map=device,
+        torch_dtype="auto",
+    )
+    prompt = [{"role": "user", "content": "Find any mistake on the student's answer" + "\nProblem: " + question + "\nRight solution:" + solution_raw +  "\n\nStudent's try: " + student}]
+    input_ids = tokenizer.apply_chat_template(prompt, return_tensors="pt", return_dict=True)
+    if device == "cuda":
+        input_ids = input_ids.to("cuda")
+
+    outputs = model.generate(**input_ids, max_new_tokens=512)
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    
 def phi():
     #torch.random.manual_seed(0) 
     model = AutoModelForCausalLM.from_pretrained( 
@@ -198,8 +213,8 @@ def gpt_smaller():
 #answer = qwen()
 #answer = mathstral()
 #answer = phi()
+answer = gemma()
 #answer = gpt()
 #answer = groqQwen()
-answer = gpt_smaller()
-#answer = meta()
+#answer = gpt_smaller()
 print(answer)
